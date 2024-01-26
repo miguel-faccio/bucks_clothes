@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atualizando Promoções</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <link rel="stylesheet" href="../public/css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+</head>
+<style>
+  /* Adicione as seguintes classes ao seu arquivo de estilo CSS */
+  body {
+    background-color: #424242; /* Tema escuro preto */
+    color: #ffffff; /* Cor do texto branca */
+  }
+  nav.navbar{
+    background-color: #303030!important; 
+  }
+   a.titulo{
+    color: #ffffff;
+  }
+  a.nav-link{
+    background-color: #0056b3;
+  }
+
+  /* Botões */
+  .btn {
+    background-color: #007bff; /* Cor azul */
+    color: #ffffff;
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background-color: #0056b3; /* Cor azul mais escura no hover */
+  }
+
+  /* Bordas e caixas */
+  .border-dark {
+    border-color: #007bff; /* Cor azul para bordas */
+  }
+
+  /* Fundo de navegação */
+  .bg-body-tertiary {
+    background-color: #7a7a7a; /* Cor de fundo escura para a barra de navegação */
+  }
+
+  /* Animação sutil */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .fadeIn {
+    animation: fadeIn 1s ease;
+  }
+
+  /* ... (Adapte conforme necessário) ... */
+
+  button.cad{
+    background-color: #0056b3;
+    width: 600px!important;
+  }
+  .btn-update, .btn-delete {
+    transition: transform 0.3s ease;
+  }
+
+  .btn-update:hover, .btn-delete:hover {
+    transform: scale(1.1);
+  }
+  nav img{
+    width: 50px;
+    height: 50px;
+  }
+</style>
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid"><img src="../../public/images/logocerta.png"  width="30" height="24">
+        <a class="navbar-brand titulo" >     CompanyMoon</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item m-1">
+              <a class="nav-link active btn  " aria-current="page" href=""><i class="bi bi-house-door"></i> Home</a>
+            </li>
+            <li class="nav-item m-1">
+              <a class="nav-link  btn " aria-current="page" href="/cupom/lista"><i class="bi bi-cash-coin"></i> Cupons</a>
+            </li>
+            <li class="nav-item m-1">
+              <a class="nav-link  btn " aria-current="page" href="/listdesconto"><i class="bi bi-bag-fill"></i> Descontos</a>
+            </li>
+            <li class="nav-item m-1">
+              <a class="nav-link  btn " aria-current="page" href="/listpromo"><i class="bi bi-award-fill"></i> Promoção</a>
+            </li>
+            <li class="nav-item m-1">
+              <a class="nav-link  btn " aria-current="page" href="/listperson"><i class="bi bi-person"></i> Personagens</a>
+            </li>
+            <li class="nav-item m-1"> 
+              <a class="nav-link  btn " aria-current="page" href="/listskins"><i class="bi bi-gift"></i> Skins</a>
+            </li>
+           
+            <li class="nav-item m-1 ms-5">
+              <a class="nav-link  btn text-bg-danger" aria-current="page" href="#"> <i class="bi bi-x-octagon"></i> Sair</a>
+            </li>
+           
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+  <main>
+    <section id="cadperson">
+      <h2>Atualizar Promoções</h2>
+      <form id="formPromo" >
+        <div class="row">
+            <input type="hidden" value="<%= promo.id %>" name="txtidpromo" id="txtidpromo" class="form-control">
+            <div class="col">
+                <label for="txtnomepromo" class="form-label" >Nome da Promoção</label>
+                <input type="text" value="<%= promo.nome %>" class="form-control" name="txtnomepromo" id="txtnomepromo" tabindex="1" autofocus>
+            </div>
+           <div class="col">
+            <label for="seldescpromo">Desconto</label>
+            <select name="seldescpromo" id="seldescpromo" tabindex="2" class="form-control">
+            
+                        <% for(let desc of desconto){ %>
+                          <option value="<%= desc.id%>"><%= desc.valorDesconto %> </option>
+                          
+                          <% } %> 
+          </select>
+           </div>
+        </div>
+        <!-- Iniciando segunda linha -->
+        <div class="row">
+            <div class="col">
+                <!-- Primeira coluna -->
+                <label for="dtstartpromo" class="form-label" >Inicio da Promoção</label>
+                <input type="date" class="form-control"  name="dtstartpromo" id="dtstartpromo" required tabindex="3" >
+            </div>
+           <div class="col">
+            <label for="dtendpromo" class="form-label" >Fim da Promoção</label>
+            <input type="date"  class="form-control" name="dtendpromo" id="dtendpromo" required tabindex="4" >
+           </div>
+           
+        </div>
+        <div class="row">
+            <div class="col">
+                <label for="txtdescpromo" class="form-label">Descrição da promoção</label>
+                <textarea name="txtdescpromo"  id="txtdescpromo" class="form-control" rows="6" tabindex="5"> <%= promo.desc %> </textarea>
+            </div>
+           
+                <div class="col">
+                    <label for="selativapromo" class="form-label"> Promomoção ativa?</label>
+                    <select name="selativapromo"  id="selativapromo" class="form-control" tabindex="4">
+                      <% for(var valor of ["0","1"] ){ %>
+                        
+
+                        <% if(valor === promo.ativar ){ %>
+                          <option value="<%= valor %>" selected="true" > Sim</option>
+                        <% } else{ %>
+                          <option value="<%= valor %>" > Não </option>
+                        <% } %>
+
+
+                      <% } %>
+                       
+                    </select>
+                </div>
+                   <div class="row m-4"> <input type="submit" class="btn btn-warning mt-4" value="Atualizar" name="btcadpromo" id="btcaddesconto" tabindex="8">
+
+            </div>
+        
+       </div>
+
+    </form>
+    </section>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script>
+    document.getElementById("formPromo").addEventListener("submit", (form) => {
+      form.preventDefault()
+      atualizarPromoNoBack()
+    })
+
+
+
+    async function atualizarPromoNoBack() {
+
+      
+      let dadosToAtualizar = {
+        nome: document.getElementById("txtnomepromo").value, 
+        dtstart: document.getElementById("dtstartpromo").value,
+        dtend: document.getElementById("dtendpromo").value,
+        desc: document.getElementById("txtdescpromo").value,
+        ativar:document.getElementById("selativapromo").value,
+        desconto:document.getElementById("seldescpromo").value,
+        id: document.getElementById("txtidpromo").value, 
+        
+      }
+
+      
+      const response = await fetch("/promoAlterar", {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(dadosToAtualizar)
+      })
+
+      const result = await response.json()
+      const reply = await result
+      
+      location.href = "/listpromo"
+
+    }
+  </script>
+</body>
+
+</html>
